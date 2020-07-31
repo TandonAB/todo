@@ -2,23 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
+import { connect } from 'react-redux';
+import { getTodo } from "../constants/actions";
 
-const TodoItem = () => {
+
+const TodoItem = ({ todo, loading, getTodo }) => {
   const { id } = useParams();
 
-  const [todo, setTodo] = useState([]);
-  const [loading, setLoading] = useState(false)
-
   useEffect(() => {
-    const fetchTodo = async () => {
-      setLoading(true);
-      const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
-      setTodo(res.data);
-      setLoading(false);
-    };
-
-    fetchTodo();
-  }, []);
+    getTodo(id)
+  }, [getTodo])
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -34,4 +27,14 @@ const TodoItem = () => {
   )
 }
 
-export default TodoItem
+
+const mapStateToProps = state => ({
+  todo: state.todo
+})
+
+const mapDispatchToProps = {
+  getTodo
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

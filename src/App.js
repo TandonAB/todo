@@ -1,28 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import Pagination from './components/Pagination';
 import { connect } from "react-redux";
 import { addTodos } from "./constants/actions";
 
-function App () {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
+function App ({ todos, loading, addTodos }) {
+
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage] = useState(10);
 
   useEffect(() => {
-    const fetchTodos = async () => {
-      setLoading(true);
-      const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      setTodos(res.data);
-      setLoading(false);
-    };
-
-    fetchTodos();
-  }, []);
+    addTodos()
+  }, [])
 
   // Get current todos
   const indexOfLastTodo = currentPage * todosPerPage;
@@ -50,9 +40,12 @@ function App () {
   );
 }
 
-const mapStateToProps = state => {
-  const todos = state.todoReducer;
-  return todos;
+const mapStateToProps = state => ({
+  todos: state.todos
+})
+
+const mapDispatchToProps = {
+  addTodos
 }
 
-export default connect(mapStateToProps, { addTodos })(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
