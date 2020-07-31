@@ -4,13 +4,17 @@ import TodoList from './components/TodoList';
 import Pagination from './components/Pagination';
 import { connect } from "react-redux";
 import { addTodos } from "./constants/actions";
+import { useHistory } from 'react-router-dom'
+
 
 function App ({ todos, loading, addTodos }) {
+  const history = useHistory()
 
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage] = useState(10);
 
   useEffect(() => {
+
     addTodos()
   }, [])
 

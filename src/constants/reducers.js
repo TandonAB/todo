@@ -16,6 +16,7 @@ function todoReducer (state = initialState, action) {
       return { todo: action.payload, loading: false }
 
     case ADD_TO_CART:
+      console.log("caart")
       return { cart: [...state.cart, action.payload] };
 
     default:
