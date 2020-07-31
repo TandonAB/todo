@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/Header';
-import TodoList from './components/TodoList';
-import Pagination from './components/Pagination';
-import { connect } from "react-redux";
-import { addTodos } from "./constants/actions";
+import Home from './Home';
+import Header from './Header';
+import TodoList from './TodoList';
+import Pagination from './Pagination';
 
-function App () {
+
+const Main = () => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,9 +31,7 @@ function App () {
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
-
-  console.log(todos)
-
+  console.log(currentTodos)
   return (
     <>
       <Header />
@@ -45,14 +43,10 @@ function App () {
           totalPosts={todos.length}
           paginate={paginate}
         />
+
       </div>
     </>
   );
-}
 
-const mapStateToProps = state => {
-  const todos = state.todoReducer;
-  return todos;
 }
-
-export default connect(mapStateToProps, { addTodos })(App);
+export default Main;
