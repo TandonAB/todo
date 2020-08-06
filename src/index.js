@@ -10,18 +10,18 @@ import store from './constants/store';
 
 const Root = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <Route exact path="/" component={App} />
-        <Route path="/todos/:id" component={TodoItem} />
-        <Route path="/cart" component={Cart} />
-      </Router>
-    </Provider>
+    <Router>
+      <Route exact path="/" component={App} />
+      <Route path="/todos/:id" component={TodoItem} />
+      <Route path="/cart" component={Cart} />
+    </Router>
   )
 }
 
 ReactDOM.render(
-  <Root />,
+  <Provider store={store}>
+    <Root />
+  </Provider >,
   document.getElementById('root')
 );
 

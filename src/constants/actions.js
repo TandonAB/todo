@@ -1,9 +1,6 @@
-import axios from 'axios';
+import baseUri from './baseUri';
 
-export const ADD_TO_CART = 'ADD_TO_CART' // action types
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART' // action types
-export const ADD_TODOS = 'ADD_TODOS' // action types
-export const GET_TODOS = 'GET_TODOS' // action types
+import { ADD_TO_CART, REMOVE_FROM_CART, ADD_TODOS, GET_TODOS } from './constants';
 
 
 export const addToCart = (cart) => async (dispatch) => {
@@ -26,7 +23,7 @@ export const removeFromCart = (cart) => async (dispatch) => {
 
 export const addTodos = () => async (dispatch) => {
   try {
-    const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
+    const res = await baseUri.get('/todos');
     dispatch({ type: ADD_TODOS, payload: res.data })
   } catch (error) {
     console.log(error.response);
@@ -35,7 +32,7 @@ export const addTodos = () => async (dispatch) => {
 
 export const getTodo = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    const res = await baseUri.get(`/todos/${id}`);
     dispatch({ type: GET_TODOS, payload: res.data })
   } catch (error) {
     console.log(error.response)

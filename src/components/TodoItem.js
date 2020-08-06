@@ -9,23 +9,28 @@ import { InputGroup } from 'react-bootstrap';
 
 const TodoItem = ({ todo, loading, getTodo, addToCart, removeFromCart }) => {
   const { id } = useParams();
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(todo.completed)
 
   useEffect(() => {
     getTodo(id)
-  }, [getTodo])
+  }, [])
 
   if (loading) {
     return <h2>Loading...</h2>;
   }
 
   const handleChange = () => {
+    console.log("HELLO", check)
     setCheck(!check)
     // console.log("checked : ", check)
     if (check === true) {
-      todo.completed = !todo.completed
+      todo.completed = true
       addToCart(todo)
+    } else if (check === false) {
+      todo.completed = false;
+      removeFromCart()
     }
+    console.log("HI", todo.completed)
   }
 
   return (

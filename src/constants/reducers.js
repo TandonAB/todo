@@ -1,13 +1,18 @@
-import { ADD_TO_CART, ADD_TODOS, GET_TODOS } from "./actions";
+import { ADD_TO_CART, ADD_TODOS, GET_TODOS } from './constants';
 
 const initialState = {
   loading: false,
   todos: [],
   todo: {},
-  cart: [],
+  cart: [{
+    "userId": 1,
+    "id": 3,
+    "title": "fugiat veniam minus",
+    "completed": true
+  },],
 }
 
-function todoReducer (state = initialState, action) {
+export const todoReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case ADD_TODOS:
       return { ...state, todos: action.payload, loading: false }
@@ -23,5 +28,3 @@ function todoReducer (state = initialState, action) {
       return state;
   }
 }
-
-export default todoReducer;

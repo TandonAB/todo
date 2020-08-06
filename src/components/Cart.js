@@ -1,9 +1,14 @@
 import React from 'react'
 import Header from './Header'
 import { connect } from 'react-redux'
+import { InputGroup } from 'react-bootstrap'
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, removeFromCart }) => {
   console.log(cart)
+
+  const handleChange = (cart) => {
+    removeFromCart(cart)
+  }
   return (
     <>
       <Header />
@@ -11,7 +16,10 @@ const Cart = ({ cart }) => {
         <h1>Cart</h1>
         <ul>
           {cart && cart.map((item, key) =>
-            <li key={key}>{cart.title}</li>
+            <li key={key}>
+              <InputGroup.Checkbox checked={item.completed} onChange={handleChange(item)} />
+              {item.title}
+            </li>
           )}
         </ul>
       </div>
@@ -23,4 +31,8 @@ const mapStateToProps = state => ({
   cart: state.cart
 })
 
-export default connect(mapStateToProps, null)(Cart)
+const mapDispatchToProps = {
+  // removeFromCart ()
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

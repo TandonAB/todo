@@ -7,21 +7,31 @@ import { addTodos } from "./constants/actions";
 import { useHistory } from 'react-router-dom'
 
 
-function App ({ todos, loading, addTodos }) {
-  const history = useHistory()
+const mapStateToProps = state => {
+  return {
+    todos: state.todos
+  };
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodos: () => dispatch(addTodos()),
+  }
+}
+
+
+function App ({ todos, loading, addTodos }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage] = useState(10);
 
   useEffect(() => {
-
     addTodos()
   }, [])
 
   // Get current todos
-  const indexOfLastTodo = currentPage * todosPerPage;
-  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+  // const indexOfLastTodo = currentPage * todosPerPage;
+  // const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  // const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
@@ -32,24 +42,17 @@ function App ({ todos, loading, addTodos }) {
     <>
       <Header />
       <div className="container mt-3">
-        <TodoList todos={currentTodos} loading={loading} />
+        <TodoList todos={todos} loading={loading} />
 
-        <Pagination
+        {/* <Pagination
           todosPerPage={todosPerPage}
           totalPosts={todos.length}
           paginate={paginate}
-        />
+        /> */}
       </div>
     </>
   );
 }
 
-const mapStateToProps = state => ({
-  todos: state.todos
-})
-
-const mapDispatchToProps = {
-  addTodos
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
