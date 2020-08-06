@@ -18,7 +18,7 @@ export const todoReducer = (state = initialState, action = {}) => {
       return { ...state, todos: action.payload, loading: false }
 
     case GET_TODOS:
-      return { todo: action.payload, loading: false }
+      return { ...state, todo: action.payload, loading: false }
 
     case ADD_TO_CART:
       console.log("caart")

@@ -30,7 +30,7 @@ const TodoItem = ({ todo, loading, getTodo, addToCart, removeFromCart }) => {
       todo.completed = false;
       removeFromCart()
     }
-    console.log("HI", todo.completed)
+    console.log("HIe", todo.completed)
   }
 
   return (
@@ -54,10 +54,12 @@ const mapStateToProps = state => ({
   todo: state.todo
 })
 
-const mapDispatchToProps = {
-  getTodo,
-  addToCart,
-  removeFromCart
+const mapDispatchToProps = dispatch => {
+  return {
+    getTodo: (id) => dispatch(getTodo(id)),
+    addToCart: () => dispatch(addToCart()),
+    removeFromCart: () => dispatch(removeFromCart())
+  }
 }
 
 

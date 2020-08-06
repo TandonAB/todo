@@ -29,9 +29,9 @@ function App ({ todos, loading, addTodos }) {
   }, [])
 
   // Get current todos
-  // const indexOfLastTodo = currentPage * todosPerPage;
-  // const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-  // const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+  const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
@@ -42,13 +42,13 @@ function App ({ todos, loading, addTodos }) {
     <>
       <Header />
       <div className="container mt-3">
-        <TodoList todos={todos} loading={loading} />
+        <TodoList todos={currentTodos} loading={loading} />
 
-        {/* <Pagination
+        <Pagination
           todosPerPage={todosPerPage}
           totalPosts={todos.length}
           paginate={paginate}
-        /> */}
+        />
       </div>
     </>
   );
